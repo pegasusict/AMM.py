@@ -1,0 +1,3 @@
+[submodule "pegasusict-python-library"]
+	path = pegasusict-python-library
+	url = https://github.com/pegasusict/pegasusict-python-library
