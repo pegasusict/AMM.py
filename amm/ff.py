@@ -20,4 +20,3 @@ def run_fast_scandir(dir, ext):  # dir: str, ext: list
         subfolders.extend(sf)
         files.extend(f)
     return subfolders, files
-
