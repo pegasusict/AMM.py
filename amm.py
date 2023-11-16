@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+__version__ = [0, 0, 0]
+__build__ = [20131116]
+
 try:
     from amm.Main import Main
     Main()
@@ -7,6 +10,7 @@ except SystemExit:
     raise  # Just continue with a normal application exit
 except:  # noqa: E722,F722 # pylint: disable=bare-except
     from amm.crash_handler import CrashHandler
+    # TODO create a decent crash handler
     ch = CrashHandler()
     raise
 

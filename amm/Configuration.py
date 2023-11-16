@@ -1,4 +1,4 @@
-from configargparse import IniConfigParser
+from configargparse import IniConfigParser, ArgumentParser
 
 from MultiVal import *
 
@@ -11,7 +11,7 @@ class Configuration(object):
     instance = None
     cfg = None
     syspath = '/etc/amm'
-    userpath = '~/.amm/'
+    userpath = '~/.local/share/amm/'
     file = 'config.ini'
 
     def __new__(cls):
@@ -20,7 +20,8 @@ class Configuration(object):
         return cls.instance
 
     def __init__(self):
-        sections = ()
+        self.args = None
+        sections = ('main', 'formatting', 'paths')
         with open(self.syspath+self.file) as f:
             cfg1data = f.read()
         with open(self.userpath+self.file) as f:
@@ -29,7 +30,7 @@ class Configuration(object):
         cfg1 = parser.parse(stream=cfg1data)
         cfg2 = parser.parse(stream=cfg2data)
 
-        self.cfg = cfg1.__dict__.update(cfg2.__dict__)
+        self.cfg = cfg1.__dict__ | cfg2.__dict__
 
     def get(self, key: str, section: str = 'general'):
         """
@@ -67,4 +68,5 @@ class Configuration(object):
         """
         :return:
         """
-        parser = arg
+        parser = ArgumentParser()
+        self.args = parser.parse_args()

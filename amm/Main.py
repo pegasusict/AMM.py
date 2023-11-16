@@ -13,5 +13,13 @@ class Main:
 
     def __init__(self):
         self.socket_state = TaskManager.check_socket()
-        # if not self.socket_state:
-        self.cfg = Configuration()
+        if not self.socket_state:
+            self.cfg = Configuration()
+
+            ui = self.cfg.get('ui')
+            if ui == "TUI":
+                self.interface = "TUI"
+            elif ui == "GUI":
+                self.interface = "GUI"
+            else:
+                self.interface = "backend"

@@ -11,3 +11,4 @@ setuptools>=65.5.0
 semver >= 2.13.0
 semver-git-hook	>= 1.0.5
 termcolor >= 2.1.0
+configargparse
