@@ -1,21 +1,29 @@
+import Singleton
+
+
 class DataBase:
     """
     :version: 0.0.0
     :author:  Mattijs Snepvangers <pegasus.ict@gmail.com>
     """
 
-    instance = None  # class singleton instance
-
     def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(DataBase, cls).__new__(cls)
-        return cls.instance
+        return super().__new__(DataBase)
 
     def connect(self):
         pass
 
-    def query(self, query):
+    def __query(self, query):
         pass
 
     def add(self, table: str, data: list):
+        pass
+
+    def get(self, query):
+        pass
+
+    def get_list(self, query):
+        pass
+
+    def update(self, query):
         pass

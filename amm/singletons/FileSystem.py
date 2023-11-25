@@ -1,20 +1,15 @@
-import os
+import os, Singleton
 
 
-class FileSystem:
+class FileSystem(Singleton):
     """
     :version: 0.0.0
     :author:  Mattijs Snepvangers pegasus.ict@gmail.com
     """
 
     ###########################################################################
-
-    instance = None  # class singleton instance
-
     def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(FileSystem, cls).__new__(cls)
-        return cls.instance
+        return super().__new__(FileSystem)
 
 
 def run_fast_scan_dir(base_path: str, ext: list = (), clean: bool = False):

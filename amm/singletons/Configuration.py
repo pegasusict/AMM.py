@@ -1,32 +1,34 @@
-from configargparse import IniConfigParser, ArgumentParser
+from configargparse import IniConfigParser as IniParser, ArgumentParser as ArgParser
 
-from MultiVal import *
+from amm.MultiVal import *
+import Singleton
 
 
-class Configuration(object):
+class Configuration(Singleton):
     """
     :version: 0.0.0
     :author:  Mattijs Snepvangers pegasus.ict@gmail.com
     """
-    instance = None
     cfg = None
     syspath = '/etc/amm'
     userpath = '~/.local/share/amm/'
     file = 'config.ini'
 
     def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(Configuration, cls).__new__(cls)
-        return cls.instance
+        return super().__new__("Configuration")
 
     def __init__(self):
         self.args = None
-        sections = ('main', 'formatting', 'paths')
-        with open(self.syspath+self.file) as f:
+        self.sections = ('main', 'formatting', 'paths')
+        self.parse_ini()
+        self.parse_args()
+
+    def parse_ini(self):
+        with open(self.syspath + self.file) as f:
             cfg1data = f.read()
-        with open(self.userpath+self.file) as f:
+        with open(self.userpath + self.file) as f:
             cfg2data = f.read()
-        parser = IniConfigParser(sections, True)
+        parser = IniParser(self.sections, True)
         cfg1 = parser.parse(stream=cfg1data)
         cfg2 = parser.parse(stream=cfg2data)
 
@@ -50,14 +52,14 @@ class Configuration(object):
         """
         pass
 
-    def load(self, filename: str = userpath+file):
+    def load(self, filename: str = userpath + file):
         """
         :param filename:
         :return:
         """
         pass
 
-    def save(self, filename: str = userpath+file):
+    def save(self, filename: str = userpath + file):
         """
         :param filename:
         :return:
@@ -66,7 +68,14 @@ class Configuration(object):
 
     def parse_args(self):
         """
+        Argument parser
+        arguments:
+            > -n / --new    starts new instance with clean database etc
+            > --ui=[t/g]    start TUI or GUI, default: daemon mode
+            > -h / --help
+            > -u / --update force update software & database to latest version,
+                            even if current version is latest already
         :return:
         """
-        parser = ArgumentParser()
+        parser = ArgParser()
         self.args = parser.parse_args()
