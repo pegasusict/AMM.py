@@ -1,5 +1,5 @@
-import TaskManager
-from Configuration import Configuration
+from amm.tasks import TaskManager
+from amm.singletons.Configuration import Configuration
 
 
 class Main:

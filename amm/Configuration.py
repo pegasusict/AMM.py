@@ -1,72 +1,35 @@
-from configargparse import IniConfigParser, ArgumentParser
-
 from MultiVal import *
 
+class Configuration:
 
-class Configuration(object):
+  """
+  :version:
+  :author:
+  """
+
+  def get(self, key: str, section: str = general):
     """
-    :version: 0.0.0
-    :author:  Mattijs Snepvangers pegasus.ict@gmail.com
+     
+
+    @param string key : 
+    @param string section : 
+    @return MultiVal :
+    @author
     """
-    instance = None
-    cfg = None
-    syspath = '/etc/amm'
-    userpath = '~/.local/share/amm/'
-    file = 'config.ini'
+    pass
 
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(Configuration, cls).__new__(cls)
-        return cls.instance
+  def set(self, key: str, value: MultiVal = true, type: MultiVal = bool, section: str = general):
+    """
+     
 
-    def __init__(self):
-        self.args = None
-        sections = ('main', 'formatting', 'paths')
-        with open(self.syspath+self.file) as f:
-            cfg1data = f.read()
-        with open(self.userpath+self.file) as f:
-            cfg2data = f.read()
-        parser = IniConfigParser(sections, True)
-        cfg1 = parser.parse(stream=cfg1data)
-        cfg2 = parser.parse(stream=cfg2data)
+    @param string key : 
+    @param MultiVal value : type can be int/str/bool
+    @param MultiVal type : 
+    @param string section : optional
+    @return bool :
+    @author
+    """
+    pass
 
-        self.cfg = cfg1.__dict__ | cfg2.__dict__
 
-    def get(self, key: str, section: str = 'general'):
-        """
-        @param string key :
-        @param string section :
-        @return MultiVal :
-        """
-        pass
 
-    def set(self, key: str, value: MultiVal = True, typing: MultiVal = bool, section: str = 'general'):
-        """
-        @param string key :
-        @param MultiVal value : can be int/str/bool
-        @param MultiVal typing :
-        @param string section : optional
-        @return bool :
-        """
-        pass
-
-    def load(self, filename: str = userpath+file):
-        """
-        :param filename:
-        :return:
-        """
-        pass
-
-    def save(self, filename: str = userpath+file):
-        """
-        :param filename:
-        :return:
-        """
-        pass
-
-    def parse_args(self):
-        """
-        :return:
-        """
-        parser = ArgumentParser()
-        self.args = parser.parse_args()
