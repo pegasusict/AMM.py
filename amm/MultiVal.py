@@ -1,12 +1,10 @@
-
 class MultiVal:
-
-  """
+    """
   :version:
   :author:
   """
 
-  dataTypes = []
+    dataTypes = []
 
-  def isType(self, value, type="string"):
-    pass
+    def is_type(self, value, typing="string"):
+        pass
